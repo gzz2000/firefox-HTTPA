@@ -990,7 +990,12 @@ HttpObserverManager = {
                 ` redirected to ${result.redirectUrl}`;
             }
             channel.resume(text);
-            channel.redirectTo(Services.io.newURI(result.redirectUrl));
+            if (result.rewrite) {
+              channel.rewriteTo(Services.io.newURI(result.redirectUrl));
+            }
+            else {
+              channel.redirectTo(Services.io.newURI(result.redirectUrl));
+            }
 
             // Web Extensions using the WebRequest API are allowed
             // to redirect a channel to a data: URI, hence we mark

@@ -2360,6 +2360,12 @@ HttpChannelChild::RedirectTo(nsIURI* newURI) {
 }
 
 NS_IMETHODIMP
+HttpChannelChild::RewriteTo(nsIURI* newURI) {
+  // disabled until/unless addons run in child or something else needs this
+  return NS_ERROR_NOT_IMPLEMENTED;
+}
+
+NS_IMETHODIMP
 HttpChannelChild::UpgradeToSecure() {
   // disabled until/unless addons run in child or something else needs this
   return NS_ERROR_NOT_IMPLEMENTED;

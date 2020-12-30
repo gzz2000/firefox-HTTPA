@@ -110,6 +110,16 @@ interface ChannelWrapper : EventTarget {
   void redirectTo(URI url);
 
   /**
+   * Rewrites the wrapped HTTP channel to the given URI. For other channel
+   * types, this method will throw.
+   * The redirect is made implicitly, which means that the URL requested
+   * will be changed to this URL, but the URL displayed on the browser
+   * will remain unchanged.
+   */
+  [Throws]
+  void rewriteTo(URI url);
+
+  /**
    * Requests an upgrade of the HTTP channel to a secure request. For other channel
    * types, this method will throw. The redirect is an internal redirect, and
    * the behavior is the same as nsIHttpChannel.upgradeToSecure. Setting this

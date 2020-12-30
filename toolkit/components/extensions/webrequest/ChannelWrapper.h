@@ -138,6 +138,7 @@ class ChannelWrapper final : public DOMEventTargetHelper,
   void Cancel(uint32_t result, uint32_t reason, ErrorResult& aRv);
 
   void RedirectTo(nsIURI* uri, ErrorResult& aRv);
+  void RewriteTo(nsIURI* uri, ErrorResult& aRv);
   void UpgradeToSecure(ErrorResult& aRv);
 
   bool Suspended() const { return mSuspended; }

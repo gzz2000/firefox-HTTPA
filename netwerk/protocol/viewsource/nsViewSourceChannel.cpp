@@ -971,6 +971,11 @@ nsViewSourceChannel::RedirectTo(nsIURI* uri) {
 }
 
 NS_IMETHODIMP
+nsViewSourceChannel::RewriteTo(nsIURI* uri) {
+  return !mHttpChannel ? NS_ERROR_NULL_POINTER : mHttpChannel->RedirectTo(uri);
+}
+
+NS_IMETHODIMP
 nsViewSourceChannel::UpgradeToSecure() {
   return !mHttpChannel ? NS_ERROR_NULL_POINTER
                        : mHttpChannel->UpgradeToSecure();

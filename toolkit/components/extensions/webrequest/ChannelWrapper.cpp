@@ -236,6 +236,16 @@ void ChannelWrapper::RedirectTo(nsIURI* aURI, ErrorResult& aRv) {
   }
 }
 
+void ChannelWrapper::RewriteTo(nsIURI* aURI, ErrorResult& aRv) {
+  nsresult rv = NS_ERROR_UNEXPECTED;
+  if (nsCOMPtr<nsIHttpChannel> chan = MaybeHttpChannel()) {
+    rv = chan->RewriteTo(aURI);
+  }
+  if (NS_FAILED(rv)) {
+    aRv.Throw(rv);
+  }
+}
+
 void ChannelWrapper::UpgradeToSecure(ErrorResult& aRv) {
   nsresult rv = NS_ERROR_UNEXPECTED;
   if (nsCOMPtr<nsIHttpChannel> chan = MaybeHttpChannel()) {

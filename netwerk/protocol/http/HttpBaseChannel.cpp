@@ -1961,6 +1961,33 @@ HttpBaseChannel::RedirectTo(nsIURI* targetURI) {
 }
 
 NS_IMETHODIMP
+HttpBaseChannel::RewriteTo(nsIURI* targetURI) {
+  NS_ENSURE_ARG(targetURI);
+
+  nsAutoCString spec;
+  targetURI->GetAsciiSpec(spec);
+  LOG(("HttpBaseChannel::RewriteTo [this=%p, uri=%s]", this, spec.get()));
+  LogCallingScriptLocation(this);
+
+  // We cannot redirect after OnStartRequest of the listener
+  // has been called, since to redirect we have to switch channels
+  // and the dance with OnStartRequest et al has to start over.
+  // This would break the nsIStreamListener contract.
+  NS_ENSURE_FALSE(LoadOnStartRequestCalled(), NS_ERROR_NOT_AVAILABLE);
+
+  // [TODO] Validate this. Does it work as expected?
+  mURI = targetURI;
+  
+  // We may want to rewrite origin allowance, hence we need an
+  // artificial response head.
+  // This is for compatibility with the JavaScript interface.
+  if (!mResponseHead) {
+    mResponseHead.reset(new nsHttpResponseHead());
+  }
+  return NS_OK;
+}
+
+NS_IMETHODIMP
 HttpBaseChannel::UpgradeToSecure() {
   // Upgrades are handled internally between http-on-modify-request and
   // http-on-before-connect, which means upgrades are only possible during

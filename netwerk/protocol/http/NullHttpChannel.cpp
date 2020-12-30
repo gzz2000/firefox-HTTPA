@@ -265,6 +265,11 @@ NullHttpChannel::RedirectTo(nsIURI* aNewURI) {
 }
 
 NS_IMETHODIMP
+NullHttpChannel::RewriteTo(nsIURI* aNewURI) {
+  return NS_ERROR_NOT_IMPLEMENTED;
+}
+
+NS_IMETHODIMP
 NullHttpChannel::UpgradeToSecure() { return NS_ERROR_NOT_IMPLEMENTED; }
 
 NS_IMETHODIMP
